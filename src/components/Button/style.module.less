@@ -1,0 +1,14 @@
+@import '../../color.less';
+.button {
+  background-image: linear-gradient(35deg, @green 0%, @teal 100%) !important;
+  background-color: @green !important;
+  color: @gray !important;
+  &:hover,
+  &:focus {
+    background: @green !important;
+    border: 1px solid transparent !important;
+  }
+  &:active {
+    box-shadow: inset 0 3px 5px rgb(0 0 0 / 13%);
+  }
+}
