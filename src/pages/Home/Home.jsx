@@ -3,7 +3,7 @@ import PostCard from '../../components/PostCard/PostCard';
 import './style.less';
 
 const Home = () => {
-  const [postData, setPostData] = useState([]);
+  const [postMeta, setPostMeta] = useState([]);
   const fake = [
     {
       id: 1,
@@ -68,13 +68,13 @@ const Home = () => {
   ];
   useEffect(() => {
     // 取post的数据
-    setPostData(fake);
+    setPostMeta(fake);
   }, []);
 
   return (
     <div className="home">
       <div className="post-list">
-        {postData.map((post) => (
+        {postMeta.map((post) => (
           <PostCard
             key={post.id}
             id={post.id}
