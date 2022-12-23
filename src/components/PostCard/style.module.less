@@ -1,0 +1,39 @@
+@import '../../color.less';
+
+.post-card {
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid @border;
+  padding: 20px;
+  transition: all 0.5s ease;
+  &:hover {
+    border-color: transparent;
+    border-radius: 8px;
+    box-shadow: 0 1px 2px -2px rgb(255 255 255 / 16%), 0 3px 6px 0 rgb(255 255 255 / 12%),
+      0 5px 12px 4px rgb(255 255 255 / 9%);
+    transform: scale(1.02);
+  }
+  .post-meta {
+    .post-title {
+      font-size: 32px;
+      margin-top: 0px;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+    .post-desc {
+      font-size: 16px;
+      line-height: 24px;
+      margin-bottom: 10px;
+    }
+  }
+  .action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .tags {
+      .tag {
+        cursor: pointer;
+      }
+    }
+  }
+}

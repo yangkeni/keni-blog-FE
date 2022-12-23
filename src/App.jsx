@@ -7,7 +7,7 @@ const App = () => {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.darkAlgorithm,
+        algorithm: theme.darkAlgorithm, // 深色模式的antd
       }}
     >
       <div className="app">

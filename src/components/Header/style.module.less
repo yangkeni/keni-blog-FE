@@ -1,0 +1,23 @@
+@import '../../color.less';
+.header {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-column-gap: 80px;
+  align-items: center;
+  justify-items: center;
+  height: 160px;
+  font-size: 16px;
+  .logo {
+    justify-self: end;
+    img {
+      width: 200px;
+    }
+  }
+  .func {
+    display: flex;
+    ul {
+      line-height: 32px;
+      background-color: @themeDark;
+    }
+  }
+}

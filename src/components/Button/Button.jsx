@@ -6,7 +6,7 @@ function Button({ className, loading = false, onClick, content, ...props }) {
   return (
     <>
     <AntdButton
-      className={style.button + ' ' + className}
+      className={`${style.button} ${className ?? ''}`}
       onClick={onClick}
       loading={loading}
     >
