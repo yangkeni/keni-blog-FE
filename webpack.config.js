@@ -8,6 +8,7 @@ const BundleAnalyzerPlugin =
 /**@type {import('webpack').Configuration} */
 
 module.exports = {
+  // cache: false, // 强制全局更新
   optimization: {
     minimizer: [
       new TerserPlugin({
@@ -45,6 +46,10 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.less$/,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'less-loader'],
@@ -73,10 +78,10 @@ module.exports = {
     // new BundleAnalyzerPlugin() // 开启则分析数据包大小
   ],
   devServer: {
-    hot: true,
     port: 3001,
     historyApiFallback: true,
   },
+  devtool: 'source-map',
   resolve: {
     extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
   },
