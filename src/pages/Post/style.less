@@ -3,5 +3,25 @@
 .post {
   width: 960px;
   margin: 0 auto;
-  border-bottom: 1px solid @border;
+  .post-header {
+    border-bottom: 1px solid @borderMuted;
+    .post-title {
+      text-align: center;
+    }
+    .post-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      font-size: 18px;
+      > span {
+        color: @disableGray;
+        a {
+          margin-left: 5px;
+          color: @gray;
+        }
+      }
+    }
+  }
 }
