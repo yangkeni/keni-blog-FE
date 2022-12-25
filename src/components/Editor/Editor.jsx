@@ -3,46 +3,17 @@ import MdEditor from 'react-markdown-editor-lite';
 import ReactMarkdown from 'react-markdown';
 import gfm from 'remark-gfm';
 import 'react-markdown-editor-lite/lib/index.css';
-// use react-markdown instead of markdown-it
-// import MarkdownIt from 'markdown-it';
-// import subscript from 'markdown-it-sub';
-// import superscript from 'markdown-it-sup';
-// import footnote from 'markdown-it-footnote';
-// import deflist from 'markdown-it-deflist';
-// import abbreviation from 'markdown-it-abbr';
-// import mark from 'markdown-it-mark';
-// import tasklists from 'markdown-it-task-lists';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './style.less';
 
-function Editor({ defaultValue, onEditorChange, plugins, preview, className }) {
-  // const mdParser = new MarkdownIt({
-  //   html: true,
-  //   linkify: true,
-  //   typographer: true,
-  //   highlight: function (str, lang) {
-  //     console.log(str, lang);
-  //     if (lang) {
-  //       try {
-  //         return <SyntaxHighlighter language={lang}>{str}</SyntaxHighlighter>;
+function Editor({ defaultValue, onChange, plugins, preview = false, className }) {
+  const editorView = {
+    menu: !preview,
+    md: !preview,
+    html: true
+  };
 
-  //         // hljs.highlight(lang, str).value
-  //       } catch (__) {}
-  //     }
-  //     return ''; // use external default escaping
-  //   },
-  // })
-  //   .use(subscript) // 下标 ~test~
-  //   .use(superscript) // 上标 ^test^
-  //   .use(footnote) // 脚注 ^[1] ^[test]
-  //   .use(deflist) // 定义 : test
-  //   .use(abbreviation) // 解释 *[test]: test
-  //   .use(mark) // 标记 ==test==
-  //   .use(tasklists); // 任务列表，配合列表使用 - [ ] a -[x] b
-  // MdEditor.use(Plugins.TabInsert, {
-  //   tabMapValue: 2,
-  // });
   const basicPlugins = [
     'font-bold',
     'font-italic',
@@ -61,19 +32,20 @@ function Editor({ defaultValue, onEditorChange, plugins, preview, className }) {
     'full-screen',
   ];
 
-  // function onEditorChange({ html, text }) {
-  //   console.log('handleEditorChange', html, text);
-  //   return handleEditorChange ? handleEditorChange({ html, text }) : null;
-  // }
+  function onEditorChange({ html, text }) {
+    // console.log('handleEditorChange', html, text);
+    // 包一层方便传给表单控件
+    return onChange ? onChange(text) : null;
+  }
 
   return (
     <MdEditor
-      className={`md-editor ${className ?? ''}`}
+      className={`md-editor ${className ?? ''} ${preview ? 'preview' : ''}`}
       markdownClass="md-editor-content"
       htmlClass="md-preview-content custom-html-style"
-      syncScrollMode={['rightFollowLeft']}
-      // value={value}
+      // syncScrollMode={['rightFollowLeft']}
       defaultValue={defaultValue}
+      view={editorView}
       renderHTML={(text) => (
         <ReactMarkdown
           remarkPlugins={[gfm]}
@@ -101,7 +73,6 @@ function Editor({ defaultValue, onEditorChange, plugins, preview, className }) {
           }}
         />
       )}
-      // renderHTML={(text) => mdParser.render(text)}
       onChange={onEditorChange}
       plugins={plugins ?? basicPlugins}
     />

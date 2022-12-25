@@ -3,4 +3,22 @@
 .write {
   width: 960px;
   margin: 0 auto;
+  .write-form {
+    border: 1px solid @border;
+    border-radius: 6px;
+    padding: 16px 16px 0;
+    .write-input-form{
+      .write-input {
+        border: unset;
+        border-radius: 0;
+        border-bottom: 1px solid @border;
+      }
+      .ant-form-item-explain {
+        text-align: left;
+        font-size: 12px;
+        margin-top: 5px;
+        margin-left: 5px;
+      }
+    }
+  }
 }

@@ -1,8 +1,9 @@
 @import '../../color.less';
 
 .md-editor {
+  // min-height: 400px;
   height: 400px;
-  background-color: @formGray;
+  background-color: @themeDark;
   border-color: @border;
   color: @gray;
   .rc-md-navigation {
@@ -34,16 +35,6 @@
       ::-webkit-scrollbar {
         display: none;
       }
-      // ::-webkit-scrollbar {
-      //   height: 4px;
-      //   width: 4px;
-      // }
-      // ::-webkit-scrollbar-thumb {
-      //   background-color: #86898b;
-      // }
-      // ::-webkit-scrollbar-corner {
-      //   display: none;
-      // }
       .md-preview-content {
         color: @gray;
         a {
@@ -87,4 +78,10 @@
       }
     }
   }
+}
+
+.preview {
+  height: auto;
+  background-color: @themeDark;
+  border-color: transparent;
 }
