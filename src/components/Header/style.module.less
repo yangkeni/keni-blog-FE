@@ -1,12 +1,13 @@
 @import '../../color.less';
 .header {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  grid-column-gap: 80px;
+  margin: 0 auto;
+  max-width: 1040px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-items: center;
-  height: 160px;
+  height: 80px;
   font-size: 16px;
+  margin-bottom: 40px;
   .logo {
     justify-self: end;
     img {
@@ -15,9 +16,23 @@
   }
   .func {
     display: flex;
+    align-items: center;
+    gap: 20px;
     ul {
       line-height: 32px;
       background-color: @themeDark;
     }
+    .add-blog {
+      width: 18px;
+      height: 18px;
+      svg {
+        width: 18px;
+        height: 18px;
+        fill: @gray;
+      }
+    }
+    // .user {
+    //   display: block;
+    // }
   }
 }

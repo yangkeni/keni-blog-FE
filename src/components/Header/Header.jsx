@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu } from 'antd';
+import { Menu, Avatar } from 'antd';
 import Logo from '../../assets/logo.png';
+import UserAvatar from '../../assets/user.jpg';
+import AddBlog from '../../assets/addBlog.svg';
 import style from './style.module.less';
 
 function Header() {
@@ -31,8 +33,8 @@ function Header() {
       ],
     },
     {
-      key: '/write',
-      label: <Link to={'/write'}>写作</Link>,
+      key: '/tags',
+      label: <Link to={'/write'}>标签</Link>,
     },
   ];
 
@@ -51,9 +53,18 @@ function Header() {
           selectedKeys={[location.pathname]}
           mode="horizontal"
           items={items}
-        ></Menu>
+        />
+        <Link
+          className={style['add-blog']}
+          to={'/write'}
+        >
+          <AddBlog />
+        </Link>
+        <Avatar
+          className={style.user}
+          src={UserAvatar}
+        />
       </div>
-      <div>用户信息</div>
     </header>
   );
 }
