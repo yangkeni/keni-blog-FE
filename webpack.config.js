@@ -55,8 +55,13 @@ module.exports = {
         use: ['style-loader', 'css-loader', 'less-loader'],
       },
       {
+        // svg组件化
+        test: /\.svg$/,
+        use: ['@svgr/webpack'],
+      },
+      {
         // 图片格式处理
-        test: /\.(jpg|png|gif|svg)$/,
+        test: /\.(jpg|png|gif)$/,
         use: {
           loader: 'file-loader',
           options: {
