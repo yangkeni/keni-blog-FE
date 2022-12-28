@@ -1,8 +1,9 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { Form, Input, message } from 'antd';
 // import NormalBreadcrumb from 'components/NormalBreadcrumb/NormalBreadcrumb';
-import Button from '../../components/Button/Button';
 import { Link, useNavigate } from 'react-router-dom';
+import Button from '../../components/Button/Button';
+import { loginReq } from '../../api/auth';
 import './style.less';
 
 const Login = () => {
@@ -15,19 +16,23 @@ const Login = () => {
     setLoading(true);
     e.target.blur();
     validateFields()
-      .then((values) => {
-        console.log('数据处理');
-        console.log(values);
-        const timer = setTimeout(() => {
-          message.success('登录成功');
-          clearTimeout(timer);
-          setLoading(false);
-          navigate('/');
-        }, 1000);
+      .then(async (values) => {
+        const loginData = {
+          username: values.username,
+          password: values.password,
+        };
+        console.log(loginData);
+        try {
+          await loginReq(loginData);
+        } catch (error) {
+          throw error;
+        }
+        setLoading(false);
+        message.success('login success');
+        navigate('/');
       })
       .catch((err) => {
-        console.log(err);
-        message.error('登录失败');
+        message.error('login failed: ' + err.response.data);
         setLoading(false);
       });
   };

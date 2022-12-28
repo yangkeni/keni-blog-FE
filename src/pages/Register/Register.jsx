@@ -3,6 +3,7 @@ import { Form, Input, message } from 'antd';
 // import NormalBreadcrumb from 'components/NormalBreadcrumb/NormalBreadcrumb';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import { registerReq } from '../../api/auth';
 import './style.less';
 
 const Register = () => {
@@ -15,19 +16,23 @@ const Register = () => {
     setLoading(true);
     e.target.blur();
     validateFields()
-      .then((values) => {
-        console.log('数据处理');
-        console.log(values);
-        const timer = setTimeout(() => {
-          message.success('注册成功');
-          clearTimeout(timer);
-          setLoading(false);
-          navigate('/login');
-        }, 1000);
+      .then(async (values) => {
+        const registerData = {
+          username: values.username,
+          email: values.email,
+          password: values.password,
+        };
+        try {
+          await registerReq(registerData);
+        } catch (error) {
+          throw error;
+        }
+        message.success('register success');
+        setLoading(false);
+        navigate('/login');
       })
       .catch((err) => {
-        console.log(err);
-        message.error('注册失败');
+        message.error('register failed: ' + err.response.data);
         setLoading(false);
       });
   };
