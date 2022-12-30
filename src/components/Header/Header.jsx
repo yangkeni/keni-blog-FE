@@ -26,18 +26,18 @@ function Header() {
       children: [
         {
           key: '?cat=diary',
-          label: <Link to={'?cat=diary'}>日记</Link>,
+          label: <Link to={'/?cat=diary'}>日记</Link>,
         },
         {
           key: '?cat=algorithm',
-          label: <Link to={'?cat=algorithm'}>算法</Link>,
+          label: <Link to={'/?cat=algorithm'}>算法</Link>,
         },
         {
           key: '?cat=tech',
-          label: <Link to={'?cat=tech'}>技术</Link>,
+          label: <Link to={'/?cat=tech'}>技术</Link>,
         },
       ],
-    },
+    }, 
     {
       key: '/tags',
       label: <Link to={'/write'}>标签</Link>,

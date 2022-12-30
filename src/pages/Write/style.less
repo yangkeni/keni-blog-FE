@@ -7,11 +7,14 @@
     border: 1px solid @border;
     border-radius: 6px;
     padding: 16px 16px 0;
-    .write-input-form{
+    .write-input-form {
       .write-input {
         border: unset;
         border-radius: 0;
         border-bottom: 1px solid @border;
+        input {
+          border-bottom: unset;
+        }
       }
       .ant-form-item-explain {
         text-align: left;
@@ -19,6 +22,10 @@
         margin-top: 5px;
         margin-left: 5px;
       }
+    }
+    .write-button {
+      width: 120px;
+      float: right;
     }
   }
 }

@@ -1,28 +1,55 @@
-import React from 'react';
-import Editor from '../../components/Editor/Editor';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Form, Input, message, Select, Tag } from 'antd';
+import Editor from '../../components/Editor/Editor';
 import Button from '../../components/Button/Button';
+import { getPost } from '../../api/post';
 import './style.less';
 
 function Write() {
+  const [post, setPost] = useState({});
+
+  const param = useLocation().pathname.split('/')[2] || '';
+
   const [writeForm] = Form.useForm();
+
+  useEffect(() => {
+    const fetchPostData = async () => {
+      const res = await getPost(param);
+      setPost(res.data);
+    };
+    param && fetchPostData();
+  }, [param]);
+
+  useEffect(() => {
+    writeForm.setFieldsValue({
+      title: post.title,
+      desc: post.desc,
+      tags: post.tags?.map((val) => val.id),
+      content: post.content,
+    });
+  }, [post]);
+
   const options = [
+    // TODO: 获取标签表
     {
       color: 'orange',
       label: 'react',
       // label: 'orange',
-      value: 'react1',
+      value: 1,
     },
     {
       color: 'volcano',
       label: 'tech',
       // label: 'volcano',
-      value: 'tech2',
+      value: 2,
     },
   ];
+
   const handleValuesChange = (changeVal, val) => {
-    console.log(changeVal, val);
+    console.log(val);
   };
+
   return (
     <div className="write">
       <Form
@@ -51,6 +78,8 @@ function Write() {
         >
           <Input
             className="write-input"
+            showCount
+            maxLength={200}
             placeholder="请输入描述"
             bordered={false}
           />
@@ -83,7 +112,7 @@ function Write() {
             options={options}
           />
         </Form.Item>
-        <Form.Item name="main">
+        <Form.Item name="content">
           <Editor />
         </Form.Item>
         <Form.Item>

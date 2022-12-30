@@ -5,6 +5,6 @@ export const getPosts = (param) => {
   return axios.get(`${baseURL}post${param}`);
 };
 
-export const getPost = () => {
-  return axios.get(baseURL + 'post/');
+export const getPost = (param) => {
+  return axios.get(`${baseURL}post/${param}`);
 };

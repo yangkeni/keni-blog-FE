@@ -7,11 +7,18 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { vscDarkPlus } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import './style.less';
 
-function Editor({ defaultValue, onChange, plugins, preview = false, className }) {
+function Editor({
+  value,
+  onChange,
+  plugins,
+  preview = false,
+  className,
+}) {
+
   const editorView = {
     menu: !preview,
     md: !preview,
-    html: true
+    html: true,
   };
 
   const basicPlugins = [
@@ -35,7 +42,7 @@ function Editor({ defaultValue, onChange, plugins, preview = false, className })
   function onEditorChange({ html, text }) {
     // console.log('handleEditorChange', html, text);
     // 包一层方便传给表单控件
-    return onChange ? onChange(text) : null;
+    onChange?.(text);
   }
 
   return (
@@ -44,7 +51,7 @@ function Editor({ defaultValue, onChange, plugins, preview = false, className })
       markdownClass="md-editor-content"
       htmlClass="md-preview-content custom-html-style"
       // syncScrollMode={['rightFollowLeft']}
-      defaultValue={defaultValue}
+      value={value}
       view={editorView}
       renderHTML={(text) => (
         <ReactMarkdown
