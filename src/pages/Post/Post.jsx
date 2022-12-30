@@ -49,7 +49,7 @@ function Post() {
           </span>
           <span>
             {testMeta.tags.map((tag) => (
-              <Tag color={tag.color}>{tag.content}</Tag>
+              <Tag key={tag.content} color={tag.color}>{tag.content}</Tag>
             ))}
           </span>
           <span>

@@ -22,8 +22,9 @@ function PostCard({ id, title, desc, tags, className }) {
       </div>
       <div className={style.action}>
         <div className={style.tags}>
-          {tags.map((tag) => (
+          {tags && tags.map((tag) => (
             <Tag
+              key={tag.content}
               className={style.tag}
               color={tag.color}
             >

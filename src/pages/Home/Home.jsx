@@ -1,74 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getPosts } from '../../api/post';
 import PostCard from '../../components/PostCard/PostCard';
 import './style.less';
 
 const Home = () => {
   const [postMeta, setPostMeta] = useState([]);
-  const fake = [
-    {
-      id: 1,
-      title: 'keni的第一篇博客',
-      desc: '这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长',
-      tags: [
-        {
-          color: 'orange',
-          content: 'react',
-        },
-        {
-          color: 'volcano',
-          content: 'tech',
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: 'keni的第一篇博客',
-      desc: '这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长',
-      tags: [
-        {
-          color: 'orange',
-          content: 'react',
-        },
-        {
-          color: 'volcano',
-          content: 'tech',
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: 'keni的第一篇博客',
-      desc: '这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长',
-      tags: [
-        {
-          color: 'orange',
-          content: 'react',
-        },
-        {
-          color: 'volcano',
-          content: 'tech',
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: 'keni的第一篇博客',
-      desc: '这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长这是keni的第一篇博客，这个描述暂时用来作为desc使用，他可能会很长很长',
-      tags: [
-        {
-          color: 'orange',
-          content: 'react',
-        },
-        {
-          color: 'volcano',
-          content: 'tech',
-        },
-      ],
-    },
-  ];
+  const param = useLocation().search;
   useEffect(() => {
-    // 取post的数据
-    setPostMeta(fake);
+    const fetchPostData = async () => {
+      const res = await getPosts(param);
+      // 取post的数据
+      setPostMeta(res.data);
+    };
+    fetchPostData();
   }, []);
 
   return (
@@ -76,8 +21,8 @@ const Home = () => {
       <div className="post-list">
         {postMeta.map((post) => (
           <PostCard
-            key={post.id}
-            id={post.id}
+            key={post.postId}
+            id={post.postId}
             title={post.title}
             desc={post.desc}
             tags={post.tags}
