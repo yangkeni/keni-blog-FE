@@ -7,4 +7,8 @@ export const registerReq = (data) => {
 
 export const loginReq = (data) => {
   return axios.post(baseURL + 'auth/login', data);
-}
+};
+
+export const logoutReq = () => {
+  return axios.post(baseURL + 'auth/logout');
+};

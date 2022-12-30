@@ -4,10 +4,12 @@ import { Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { loginReq } from '../../api/auth';
+import { useCurUser } from '../../hooks';
 import './style.less';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
+  const { setCurUser } = useCurUser();
   const [loginForm] = Form.useForm();
   const navigate = useNavigate();
   const { validateFields } = loginForm;
@@ -21,9 +23,9 @@ const Login = () => {
           username: values.username,
           password: values.password,
         };
-        console.log(loginData);
         try {
-          await loginReq(loginData);
+          const res = await loginReq(loginData);
+          setCurUser(res.data);
         } catch (error) {
           throw error;
         }

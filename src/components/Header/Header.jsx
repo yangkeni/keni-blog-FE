@@ -1,13 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, Avatar } from 'antd';
+import { Menu, Avatar, Popover } from 'antd';
 import Logo from '../../assets/logo.png';
 import UserAvatar from '../../assets/user.jpg';
 import AddBlog from '../../assets/addBlog.svg';
 import style from './style.module.less';
+import { useCurUser } from '../../hooks';
+import Button from '../Button/Button';
+import { logoutReq } from '../../api/auth';
 
 function Header() {
   const location = useLocation();
+  const { curUser, setCurUser } = useCurUser();
+  const [loading, setLoading] = useState(false);
+
   // 菜单栏配置 { key, icon, children, label, type };
   const items = [
     {
@@ -38,6 +44,13 @@ function Header() {
     },
   ];
 
+  const handleLogoutClick = async() => {
+    setLoading(true);
+    await logoutReq();
+    setCurUser(null);
+    setLoading(false);
+  };
+
   return (
     <header className={style.header}>
       <div className={style.logo}>
@@ -60,10 +73,23 @@ function Header() {
         >
           <AddBlog />
         </Link>
-        <Avatar
-          className={style.user}
-          src={UserAvatar}
-        />
+        {/* {curUser ?  : } */}
+        <Popover
+          content={
+            <Button
+              loading={loading}
+              onClick={handleLogoutClick}
+            >
+              注销
+            </Button>
+          }
+          trigger="click"
+        >
+          <Avatar
+            className={style.user}
+            src={UserAvatar}
+          />
+        </Popover>
       </div>
     </header>
   );

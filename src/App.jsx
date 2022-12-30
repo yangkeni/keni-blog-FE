@@ -1,6 +1,7 @@
 import React from 'react';
 import { RouterProvider } from 'react-router-dom';
-import { ConfigProvider, theme } from "antd";
+import { ConfigProvider, theme } from 'antd';
+import { RecoilRoot } from 'recoil';
 import router from './RouterMap';
 
 const App = () => {
@@ -10,9 +11,11 @@ const App = () => {
         algorithm: theme.darkAlgorithm, // 深色模式的antd
       }}
     >
-      <div className="app">
-        <RouterProvider router={router} />
-      </div>
+      <RecoilRoot>
+        <div className="app">
+          <RouterProvider router={router} />
+        </div>
+      </RecoilRoot>
     </ConfigProvider>
   );
 };
