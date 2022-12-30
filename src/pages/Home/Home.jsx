@@ -8,13 +8,13 @@ const Home = () => {
   const [postMeta, setPostMeta] = useState([]);
   const param = useLocation().search;
   useEffect(() => {
-    const fetchPostData = async () => {
+    const fetchPostsData = async () => {
       const res = await getPosts(param);
       // 取post的数据
       setPostMeta(res.data);
     };
-    fetchPostData();
-  }, []);
+    fetchPostsData();
+  }, [param]);
 
   return (
     <div className="home">

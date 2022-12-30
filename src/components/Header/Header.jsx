@@ -25,16 +25,16 @@ function Header() {
       label: '分类',
       children: [
         {
-          key: '/diary',
-          label: <Link to={'/write'}>日记</Link>,
+          key: '?cat=diary',
+          label: <Link to={'?cat=diary'}>日记</Link>,
         },
         {
-          key: '/algorithm',
-          label: <Link to={'/write'}>算法</Link>,
+          key: '?cat=algorithm',
+          label: <Link to={'?cat=algorithm'}>算法</Link>,
         },
         {
-          key: '/tech',
-          label: <Link to={'/write'}>技术</Link>,
+          key: '?cat=tech',
+          label: <Link to={'?cat=tech'}>技术</Link>,
         },
       ],
     },
@@ -63,7 +63,7 @@ function Header() {
       </div>
       <div className={style.func}>
         <Menu
-          selectedKeys={[location.pathname]}
+          selectedKeys={[location.search || location.pathname]}
           mode="horizontal"
           items={items}
         />
