@@ -1,15 +1,28 @@
-# 🥳FE keni's Blog
+# FE keni's Blog
 
 ## keni's practice
 
-it's a keni's program, just for practice~😘
+it's the frontend proj of keni's blog
 
 ## feat
 
-coming soon~🥰
++ user login & register
++ blog update & display (crud)
++ blog tags & category support
++ **markdown edit & preview** support
+
+## TODO
+
++ [ ] 🚧 file upload support
++ [ ] 🚧 tag & category combine
++ [ ] 🚧 Collaboration support
++ [ ] 🚧 markdown support latex
++ [ ] 🚧 editor modified
 
 ## Start
 
-+ git clone it!👇
-+ npm install it!👇
-+ npm run start it!🥳
++ git clone it! 👇
++ npm install it! 👇
++ npm run start it! 🥳
+
+⚠️ **should used with backend proj of keni's blog**
