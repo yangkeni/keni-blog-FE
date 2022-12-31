@@ -6,7 +6,9 @@ export const registerReq = (data) => {
 };
 
 export const loginReq = (data) => {
-  return axios.post(baseURL + 'auth/login', data);
+  return axios.post(baseURL + 'auth/login', data, {
+    withCredentials: true,
+  });
 };
 
 export const logoutReq = () => {

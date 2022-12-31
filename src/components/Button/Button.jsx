@@ -9,6 +9,7 @@ function Button({ className, loading = false, onClick, content, ...props }) {
       className={`${style.button} ${className ?? ''}`}
       onClick={onClick}
       loading={loading}
+      {...props}
     >
       {content}
       {props.children}
