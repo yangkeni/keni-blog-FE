@@ -11,17 +11,29 @@
     .post-meta {
       display: flex;
       align-items: center;
-      justify-content: right;
-      gap: 15px;
+      justify-content: space-between;
       margin-bottom: 15px;
       font-size: 15px;
-      > span {
-        color: @disableGray;
-        span,a {
-          margin-left: 6px;
-        }
-        a {
-          color: @gray;
+      .post-tags {
+        margin-left: 15px;
+      }
+      .post-basic {
+        display: flex;
+        gap: 15px;
+        padding: 0 15px;
+        > span {
+          color: @disableGray;
+          span,
+          a {
+            margin-left: 6px;
+          }
+          a {
+            color: @gray;
+          }
+          .post-delete {
+            cursor: pointer;
+            color: @gray;
+          }
         }
       }
     }

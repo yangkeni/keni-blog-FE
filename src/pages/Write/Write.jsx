@@ -1,15 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-import { Form, Input, message, Select, Tag } from 'antd';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Form, Input, message, Radio, Select, Tag } from 'antd';
 import Editor from '../../components/Editor/Editor';
 import Button from '../../components/Button/Button';
-import { getPost } from '../../api/post';
+import { addPost, getPost, updatePost } from '../../api/post';
+import { useCurUser } from '../../hooks';
 import './style.less';
+import { getTags } from '../../api/tag';
 
 function Write() {
   const [post, setPost] = useState({});
+  const [tags, setTags] = useState([]);
+  const { curUser } = useCurUser();
 
   const param = useLocation().pathname.split('/')[2] || '';
+  const navigate = useNavigate();
 
   const [writeForm] = Form.useForm();
 
@@ -18,7 +23,12 @@ function Write() {
       const res = await getPost(param);
       setPost(res.data);
     };
+    const fetchTagsData = async () => {
+      const res = await getTags();
+      setTags(res.data);
+    };
     param && fetchPostData();
+    fetchTagsData();
   }, [param]);
 
   useEffect(() => {
@@ -30,24 +40,22 @@ function Write() {
     });
   }, [post]);
 
-  const options = [
-    // TODO: 获取标签表
-    {
-      color: 'orange',
-      label: 'react',
-      // label: 'orange',
-      value: 1,
-    },
-    {
-      color: 'volcano',
-      label: 'tech',
-      // label: 'volcano',
-      value: 2,
-    },
-  ];
-
   const handleValuesChange = (changeVal, val) => {
     console.log(val);
+  };
+
+  const handleFinish = (val) => {
+    const updatePostFunc = async () => {
+      await updatePost(param, val);
+    };
+    const addPostFunc = async () => {
+      await addPost({
+        ...val,
+        username: curUser.username,
+      });
+    };
+    param ? updatePostFunc() : addPostFunc();
+    navigate('/');
   };
 
   return (
@@ -57,6 +65,7 @@ function Write() {
         className="write-form"
         form={writeForm}
         onValuesChange={handleValuesChange}
+        onFinish={handleFinish}
       >
         <Form.Item
           name="title"
@@ -84,34 +93,45 @@ function Write() {
             bordered={false}
           />
         </Form.Item>
-        <Form.Item
-          name="tags"
-          label="标签"
-          rules={[{ required: true, message: '请选择标签' }]}
-          className="write-input-form"
-        >
-          <Select
-            className="write-input"
-            mode="multiple"
-            showArrow
-            tagRender={(props) => {
-              const { label, value, closable, onClose } = props;
-              return (
-                // TODO: 之后可以使用表查找或者其他方法
-                <Tag
-                  color="orange"
-                  closable={closable}
-                  onClose={onClose}
-                >
-                  {label}
-                </Tag>
-              );
-            }}
-            placeholder="请选择标签"
-            bordered={false}
-            options={options}
-          />
-        </Form.Item>
+        <div className="write-archive">
+          <Form.Item
+            name="cat"
+            label="类别"
+            className="write-input-form"
+            required
+          >
+            <Radio.Group options={['diary', 'algorithm', 'tech']} />
+          </Form.Item>
+          <Form.Item
+            name="tags"
+            label="标签"
+            rules={[{ required: true, message: '请选择标签' }]}
+            className="write-input-form"
+          >
+            <Select
+              className="write-input"
+              mode="multiple"
+              showArrow
+              optionFilterProp="label"
+              tagRender={(props) => {
+                const { label, value, closable, onClose } = props;
+                return (
+                  <Tag
+                    color={value}
+                    closable={closable}
+                    onClose={onClose}
+                  >
+                    {label}
+                  </Tag>
+                );
+              }}
+              placeholder="请选择标签"
+              bordered={false}
+              options={tags}
+            />
+          </Form.Item>
+        </div>
+
         <Form.Item name="content">
           <Editor />
         </Form.Item>
@@ -119,6 +139,7 @@ function Write() {
           <Button
             className="write-button"
             htmlType="submit"
+            type="primary"
           >
             提交
           </Button>
