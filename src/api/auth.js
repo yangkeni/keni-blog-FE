@@ -12,5 +12,7 @@ export const loginReq = (data) => {
 };
 
 export const logoutReq = () => {
-  return axios.post(baseURL + 'auth/logout');
+  return axios.post(baseURL + 'auth/logout', undefined, {
+    withCredentials: true,
+  });
 };
