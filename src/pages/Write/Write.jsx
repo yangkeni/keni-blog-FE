@@ -35,6 +35,7 @@ function Write() {
     writeForm.setFieldsValue({
       title: post.title,
       desc: post.desc,
+      cat: post.cat,
       tags: post.tags?.map((val) => val.id),
       content: post.content,
     });
@@ -46,11 +47,15 @@ function Write() {
 
   const handleFinish = (val) => {
     const updatePostFunc = async () => {
-      await updatePost(param, val);
+      await updatePost(param, {
+        ...val,
+        tags: [1, 2]
+      });
     };
     const addPostFunc = async () => {
       await addPost({
         ...val,
+        tags: [1, 2],
         username: curUser.username,
       });
     };
@@ -98,7 +103,7 @@ function Write() {
             name="cat"
             label="类别"
             className="write-input-form"
-            required
+            rules={[{ required: true, message: '请选择类别' }]}
           >
             <Radio.Group options={['diary', 'algorithm', 'tech']} />
           </Form.Item>
@@ -131,7 +136,6 @@ function Write() {
             />
           </Form.Item>
         </div>
-
         <Form.Item name="content">
           <Editor />
         </Form.Item>

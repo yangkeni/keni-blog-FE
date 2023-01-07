@@ -13,6 +13,12 @@ it's the frontend proj of keni's blog
 
 ## TODO
 
++ [ ] 🚧 axios config
++ [ ] 🚧 typescript support
++ [ ] 🚧 ssr support
++ [ ] 🚧 user logic adjust❗️
++ [ ] 🚧 sort support❗️
++ [ ] 🚧 ux up❗️
 + [ ] 🚧 file upload support
 + [ ] 🚧 tag & category combine
 + [ ] 🚧 Collaboration support
