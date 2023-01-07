@@ -37,14 +37,14 @@ function Header() {
           label: <Link to={'/?cat=tech'}>技术</Link>,
         },
       ],
-    }, 
+    },
     {
       key: '/tags',
       label: <Link to={'/write'}>标签</Link>,
     },
   ];
 
-  const handleLogoutClick = async() => {
+  const handleLogoutClick = async () => {
     setLoading(true);
     await logoutReq();
     setCurUser(null);
@@ -67,29 +67,41 @@ function Header() {
           mode="horizontal"
           items={items}
         />
-        <Link
-          className={style['add-blog']}
-          to={'/write'}
-        >
-          <AddBlog />
-        </Link>
-        {/* {curUser ?  : } */}
-        <Popover
-          content={
-            <Button
-              loading={loading}
-              onClick={handleLogoutClick}
+        {curUser ? (
+          <>
+            <Link
+              className={style['add-blog']}
+              to={'/write'}
             >
-              注销
-            </Button>
-          }
-          trigger="click"
-        >
-          <Avatar
-            className={style.user}
-            src={UserAvatar}
-          />
-        </Popover>
+              <AddBlog />
+            </Link>
+            <Popover
+              content={
+                <Button
+                  loading={loading}
+                  onClick={handleLogoutClick}
+                >
+                  注销
+                </Button>
+              }
+              trigger="click"
+            >
+              <Avatar
+                className={style.user}
+                src={UserAvatar}
+              />
+            </Popover>
+          </>
+        ) : (
+          <Link to={'/login'}>
+            <Avatar
+              className={style.user}
+              // src={UserAvatar}
+            >
+              Login
+            </Avatar>
+          </Link>
+        )}
       </div>
     </header>
   );

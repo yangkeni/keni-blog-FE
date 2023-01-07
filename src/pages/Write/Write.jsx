@@ -42,25 +42,30 @@ function Write() {
   }, [post]);
 
   const handleValuesChange = (changeVal, val) => {
-    console.log(val);
+    // console.log(val);
   };
 
-  const handleFinish = (val) => {
-    const updatePostFunc = async () => {
-      await updatePost(param, {
+  const handleFinish = async (val) => {
+    const updatePostFunc = () => {
+      return updatePost(param, {
         ...val,
-        tags: [1, 2]
+        tags: [1, 2],
       });
     };
-    const addPostFunc = async () => {
-      await addPost({
+    const addPostFunc = () => {
+      return addPost({
         ...val,
         tags: [1, 2],
         username: curUser.username,
       });
     };
-    param ? updatePostFunc() : addPostFunc();
-    navigate('/');
+    try {
+      param ? await updatePostFunc() : await addPostFunc();
+      message.success('modified success 😘');
+      navigate('/');
+    } catch (error) {
+      message.error('modified failed 😢');
+    }
   };
 
   return (

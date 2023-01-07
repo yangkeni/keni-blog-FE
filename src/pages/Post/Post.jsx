@@ -8,12 +8,14 @@ import EditSVG from '../../assets/edit.svg';
 import CloseSVG from '../../assets/close.svg';
 import Editor from '../../components/Editor/Editor';
 import './style.less';
+import { useCurUser } from '../../hooks';
 
 dayjs.extend(relativeTime);
 
 function Post() {
   const { confirm } = Modal;
 
+  const { curUser } = useCurUser();
   const [post, setPost] = useState({});
   const navigate = useNavigate();
   const param = useLocation().pathname.split('/')[2];
@@ -62,17 +64,21 @@ function Post() {
             <span>
               Date:<span>{dayjs(post.modified).fromNow()}</span>
             </span>
-            <span>
-              <Link to={`/write/${post.postId}`}>
-                <EditSVG />
-              </Link>
-            </span>
-            <span>
-              <CloseSVG
-                className="post-delete"
-                onClick={handleDeleteClick}
-              />
-            </span>
+            {curUser && (
+              <>
+                <span>
+                  <Link to={`/write/${post.postId}`}>
+                    <EditSVG />
+                  </Link>
+                </span>
+                <span>
+                  <CloseSVG
+                    className="post-delete"
+                    onClick={handleDeleteClick}
+                  />
+                </span>
+              </>
+            )}
           </div>
         </div>
       </div>

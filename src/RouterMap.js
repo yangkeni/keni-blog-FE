@@ -7,19 +7,21 @@ import Login from './pages/Login/Login';
 import Write from './pages/Write/Write';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
-import { useCurUser } from './hooks';
+// import { useCurUser } from './hooks';
 
 const Layout = () => {
-  const { curUser } = useCurUser();
-  return curUser ? (
+  // const { curUser } = useCurUser();
+  // return curUser ? (
+  return (
     <>
       <Header />
       <Outlet />
       <Footer />
     </>
-  ) : (
-    <Navigate to={'/login'} />
   );
+  // ) : (
+  //   <Navigate to={'/login'} />
+  // );
 };
 
 const router = createBrowserRouter([
