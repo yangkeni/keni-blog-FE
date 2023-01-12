@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Tag, Modal } from 'antd';
+import { Tag, Modal, message, Empty } from 'antd';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { deletePost, getPost } from '../../api/post';
@@ -33,7 +33,9 @@ function Post() {
       // title: "确定要删除文章吗？",
       content: '确定要删除文章吗？',
       onOk() {
-        return deletePost(param).then(navigate('/'));
+        return deletePost(param)
+          .then(navigate('/'))
+          .then(message.success('delete success 🥳'));
       },
       okText: '确定',
       cancelText: '取消',
@@ -83,12 +85,14 @@ function Post() {
         </div>
       </div>
       <div className="post-content">
-        {post.content && (
+        {post.content ? (
           <Editor
             preview
             // defaultValue={post.content}
             value={post.content}
           />
+        ) : (
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </div>
     </div>
