@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Form, Input, message, Radio, Select, Tag } from 'antd';
+import { Form, Input, message, notification, Radio, Select, Tag } from 'antd';
 import Editor from '../../components/Editor/Editor';
 import Button from '../../components/Button/Button';
 import { addPost, getPost, updatePost } from '../../api/post';
 import { useCurUser } from '../../hooks';
-import './style.less';
 import { getTags } from '../../api/tag';
+import { debounce, find, isEmpty } from 'lodash';
+import './style.less';
 
 function Write() {
   const [post, setPost] = useState({});
   const [tags, setTags] = useState([]);
   const { curUser } = useCurUser();
+
+  const [api, contextHolder] = notification.useNotification();
 
   const param = useLocation().pathname.split('/')[2] || '';
   const navigate = useNavigate();
@@ -36,20 +39,43 @@ function Write() {
       title: post.title,
       desc: post.desc,
       cat: post.cat,
-      tags: post.tags?.map((val) => val.id),
+      tags: post.tags?.map((val) => val.value),
       content: post.content,
     });
   }, [post]);
 
-  const handleValuesChange = (changeVal, val) => {
-    // console.log(val);
+  const handleValuesChange = async (changeVal, val) => {
+    if (param && !isEmpty(changeVal)) {
+      const curTags = val.tags?.map((tag) => find(tags, ['value', tag])?.id);
+      try {
+        await updatePost(param, {
+          ...val,
+          tags: curTags,
+        });
+        api.info({
+          message: '自动保存成功',
+          placement: 'topLeft',
+          duration: 1,
+        });
+      } catch (error) {
+        api.warning({
+          message: '自动保存失败',
+          placement: 'topLeft',
+          duration: 1,
+        });
+      }
+    }
   };
 
+  const autoSave = debounce(handleValuesChange, 3000);
+
   const handleFinish = async (val) => {
+    autoSave.cancel();
+    const curTags = val.tags?.map((tag) => find(tags, ['value', tag])?.id);
     const updatePostFunc = () => {
       return updatePost(param, {
         ...val,
-        tags: [1, 2],
+        tags: curTags,
       });
     };
     const addPostFunc = () => {
@@ -61,20 +87,25 @@ function Write() {
     };
     try {
       param ? await updatePostFunc() : await addPostFunc();
-      message.success('modified success 😘');
+      param
+        ? message.success('modified success 😘')
+        : message.success('create success 😘');
       navigate('/');
     } catch (error) {
-      message.error('modified failed 😢');
+      param
+        ? message.error('modified failed 😢')
+        : message.error('create failed 😢');
     }
   };
 
   return (
     <div className="write">
+      {contextHolder}
       <Form
         layout="horizontal"
         className="write-form"
         form={writeForm}
-        onValuesChange={handleValuesChange}
+        onValuesChange={param ? autoSave : handleValuesChange}
         onFinish={handleFinish}
       >
         <Form.Item
