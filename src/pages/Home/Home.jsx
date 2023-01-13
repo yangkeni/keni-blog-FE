@@ -1,6 +1,7 @@
 import { Empty } from 'antd';
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { setTitle } from '../../../utils';
 import { getPosts } from '../../api/post';
 import PostCard from '../../components/PostCard/PostCard';
 import './style.less';
@@ -8,6 +9,11 @@ import './style.less';
 const Home = () => {
   const [postMeta, setPostMeta] = useState([]);
   const param = useLocation().search;
+
+  useEffect(() => {
+    setTitle('总览');
+  }, []);
+
   useEffect(() => {
     const fetchPostsData = async () => {
       const res = await getPosts(param);
@@ -31,9 +37,7 @@ const Home = () => {
             />
           ))
         ) : (
-          <Empty
-            image={Empty.PRESENTED_IMAGE_SIMPLE}
-          />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
         )}
       </div>
     </div>

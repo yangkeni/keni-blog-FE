@@ -9,6 +9,7 @@ import CloseSVG from '../../assets/close.svg';
 import Editor from '../../components/Editor/Editor';
 import './style.less';
 import { useCurUser } from '../../hooks';
+import { setTitle } from '../../../utils';
 
 dayjs.extend(relativeTime);
 
@@ -27,6 +28,10 @@ function Post() {
     };
     fetchPostData();
   }, [param]);
+
+  useEffect(() => {
+    setTitle(post.title || '空白页');
+  }, [post]);
 
   const handleDeleteClick = () => {
     confirm({

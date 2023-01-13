@@ -1,16 +1,21 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, message } from 'antd';
 // import NormalBreadcrumb from 'components/NormalBreadcrumb/NormalBreadcrumb';
 import { Link, useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import { registerReq } from '../../api/auth';
 import './style.less';
+import { setTitle } from '../../../utils';
 
 const Register = () => {
   const [loading, setLoading] = useState(false);
   const [registerForm] = Form.useForm();
   const navigate = useNavigate();
   const { validateFields } = registerForm;
+
+  useEffect(() => {
+    setTitle('注册');
+  }, []);
 
   const handleButtonClick = (e) => {
     setLoading(true);

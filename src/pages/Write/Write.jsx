@@ -8,6 +8,7 @@ import { useCurUser } from '../../hooks';
 import { getTags } from '../../api/tag';
 import { debounce, find, isEmpty } from 'lodash';
 import './style.less';
+import { setTitle } from '../../../utils';
 
 function Write() {
   const [post, setPost] = useState({});
@@ -42,9 +43,11 @@ function Write() {
       tags: post.tags?.map((val) => val.value),
       content: post.content,
     });
+    setTitle(post.title || '空白页');
   }, [post]);
 
   const handleValuesChange = async (changeVal, val) => {
+    changeVal.title ? setTitle(changeVal.title) : setTitle('空白页');
     if (param && !isEmpty(changeVal)) {
       const curTags = val.tags?.map((tag) => find(tags, ['value', tag])?.id);
       try {

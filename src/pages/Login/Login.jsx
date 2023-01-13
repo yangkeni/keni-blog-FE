@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Form, Input, message } from 'antd';
 // import NormalBreadcrumb from 'components/NormalBreadcrumb/NormalBreadcrumb';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,6 +6,7 @@ import Button from '../../components/Button/Button';
 import { loginReq } from '../../api/auth';
 import { useCurUser } from '../../hooks';
 import './style.less';
+import { setTitle } from '../../../utils';
 
 const Login = () => {
   const [loading, setLoading] = useState(false);
@@ -13,6 +14,10 @@ const Login = () => {
   const [loginForm] = Form.useForm();
   const navigate = useNavigate();
   const { validateFields } = loginForm;
+
+  useEffect(() => {
+    setTitle('登录');
+  }, []);
 
   const handleButtonClick = (e) => {
     setLoading(true);
