@@ -38,10 +38,10 @@ function Header() {
         },
       ],
     },
-    {
-      key: '/tags',
-      label: <Link to={'/write'}>标签</Link>,
-    },
+    // {
+    //   key: '/tags',
+    //   label: <Link to={'/write'}>标签</Link>,
+    // },
   ];
 
   const handleLogoutClick = async () => {

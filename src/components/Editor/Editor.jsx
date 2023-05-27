@@ -50,7 +50,7 @@ function Editor({
       className={`md-editor ${className ?? ''} ${preview ? 'preview' : ''}`}
       markdownClass="md-editor-content"
       htmlClass="md-preview-content custom-html-style"
-      syncScrollMode={['leftFollowRight']}
+      syncScrollMode={['leftFollowRight', 'rightFollowLeft']}
       value={value}
       view={editorView}
       renderHTML={(text) => (
