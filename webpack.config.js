@@ -2,14 +2,23 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 const BundleAnalyzerPlugin =
   require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /**@type {import('webpack').Configuration} */
 
 module.exports = {
+  // mode: 'production',
   // cache: false, // 强制全局更新
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
   optimization: {
+    usedExports: true,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
@@ -80,13 +89,21 @@ module.exports = {
       filename: 'index.html',
     }),
     new webpack.HotModuleReplacementPlugin(),
-    // new BundleAnalyzerPlugin() // 开启则分析数据包大小
+    // new BundleAnalyzerPlugin(), // 开启则分析数据包大小
+    new CompressionPlugin({
+      algorithm: 'gzip', // 使用gzip压缩
+      test: /\.js$|\.html$|\.css$/, // 匹配文件名
+      filename: '[path][base].gz', // 压缩后的文件名(保持原文件名，后缀加.gz)
+      minRatio: 0.8, // 压缩率小于1才会压缩
+      threshold: 10240, // 对超过10k的数据压缩
+    }),
   ],
   devServer: {
     port: 3001,
     historyApiFallback: true,
   },
-  devtool: 'source-map',
+  // devtool: 'source-map',
+  devtool: false,
   resolve: {
     extensions: ['.wasm', '.mjs', '.js', '.jsx', '.json'],
   },
