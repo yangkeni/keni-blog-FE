@@ -1,6 +1,5 @@
-import axios from 'axios';
-import { baseURL } from './baseURL';
+import axios from './axiosInit';
 
 export const getTags = () => {
-  return axios.get(baseURL + 'tag');
+  return axios.get('tag');
 };

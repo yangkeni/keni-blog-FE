@@ -1,13 +1,17 @@
 import React from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import Home from './pages/Home/Home';
-import Post from './pages/Post/Post';
+// import Post from './pages/Post/Post';
 import Register from './pages/Register/Register';
 import Login from './pages/Login/Login';
-import Write from './pages/Write/Write';
+// import Write from './pages/Write/Write';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 // import { useCurUser } from './hooks';
+
+const Write = React.lazy(() => import('./pages/Write/Write'));
+
+const Post = React.lazy(() => import('./pages/Post/Post'));
 
 const Layout = () => {
   // const { curUser } = useCurUser();
@@ -35,11 +39,20 @@ const router = createBrowserRouter([
       },
       {
         path: '/post/:id',
-        element: <Post />,
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Post />
+          </React.Suspense>
+        ),
       },
       {
         path: '/write/:id?',
-        element: <Write />,
+        // element: <Write />,
+        element: (
+          <React.Suspense fallback={<div>Loading...</div>}>
+            <Write />
+          </React.Suspense>
+        ),
       },
     ],
   },

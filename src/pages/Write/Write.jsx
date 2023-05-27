@@ -47,7 +47,10 @@ function Write() {
   }, [post]);
 
   const handleValuesChange = async (changeVal, val) => {
-    changeVal.title ? setTitle(changeVal.title) : setTitle('空白页');
+    // 做了debounce 防抖
+    if (changeVal.title) {
+      changeVal.title !== '' ? setTitle(changeVal.title) : setTitle('空白页');
+    }
     if (param && !isEmpty(changeVal)) {
       const curTags = val.tags?.map((tag) => find(tags, ['value', tag])?.id);
       try {
