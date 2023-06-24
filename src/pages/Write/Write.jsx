@@ -87,7 +87,7 @@ function Write() {
     const addPostFunc = () => {
       return addPost({
         ...val,
-        tags: [1, 2],
+        tags: curTags,
         username: curUser.username,
       });
     };
