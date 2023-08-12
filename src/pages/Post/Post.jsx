@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Tag, Modal, message, Empty } from 'antd';
+import { Tag, message, Empty, Popconfirm } from 'antd';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import { deletePost, getPost } from '../../api/post';
@@ -14,7 +14,6 @@ import { setTitle } from '../../../utils';
 dayjs.extend(relativeTime);
 
 function Post() {
-  const { confirm } = Modal;
 
   const { curUser } = useCurUser();
   const [post, setPost] = useState({});
@@ -33,19 +32,11 @@ function Post() {
     setTitle(post.title || '空白页');
   }, [post]);
 
-  const handleDeleteClick = () => {
-    confirm({
-      // title: "确定要删除文章吗？",
-      content: '确定要删除文章吗？',
-      onOk() {
-        return deletePost(param)
-          .then(navigate('/'))
-          .then(message.success('delete success 🥳'));
-      },
-      okText: '确定',
-      cancelText: '取消',
-    });
-  };
+  const handleConfirm = () => {
+    return deletePost(param)
+      .then(navigate('/'))
+      .then(message.success('delete success 🥳'));
+  }
 
   return (
     <div className="post">
@@ -78,12 +69,18 @@ function Post() {
                     <EditSVG />
                   </Link>
                 </span>
-                <span>
-                  <CloseSVG
-                    className="post-delete"
-                    onClick={handleDeleteClick}
-                  />
-                </span>
+                <Popconfirm
+                  title="确定要删除文章吗？"
+                  onConfirm={handleConfirm}
+                  okText='确定'
+                  cancelText='取消'
+                >
+                  <span>
+                    <CloseSVG
+                      className="post-delete"
+                    />
+                  </span>
+                </Popconfirm>
               </>
             )}
           </div>
