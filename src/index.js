@@ -11,10 +11,6 @@ if (module.hot) {
     }
   })
 }
-window.onload = () => {
-  import(/* webpackPrefetch: true */ './pages/Post/Post');
-  import(/* webpackPrefetch: true */ './pages/Write/Write');
-}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -22,3 +18,8 @@ root.render(
     <App />
   </React.StrictMode>
 );
+
+window.onload = () => {
+  import('./pages/Post/Post');
+  import('./pages/Write/Write');
+}
