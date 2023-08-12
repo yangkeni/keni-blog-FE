@@ -11,6 +11,10 @@ if (module.hot) {
     }
   })
 }
+window.onload = () => {
+  import(/* webpackPrefetch: true */ './pages/Post/Post');
+  import(/* webpackPrefetch: true */ './pages/Write/Write');
+}
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
