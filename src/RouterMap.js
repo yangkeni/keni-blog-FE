@@ -2,8 +2,6 @@ import React from 'react';
 import { createBrowserRouter, Navigate, Outlet } from 'react-router-dom';
 import Home from './pages/Home/Home';
 // import Post from './pages/Post/Post';
-import Register from './pages/Register/Register';
-import Login from './pages/Login/Login';
 // import Write from './pages/Write/Write';
 import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
@@ -12,6 +10,10 @@ import Footer from './components/Footer/Footer';
 const Write = React.lazy(() => import('./pages/Write/Write'));
 
 const Post = React.lazy(() => import('./pages/Post/Post'));
+
+const Register = React.lazy(() => import('./pages/Register/Register'));
+const Login = React.lazy(() => import('./pages/Login/Login'));
+
 
 const Layout = () => {
   // const { curUser } = useCurUser();
@@ -58,11 +60,19 @@ const router = createBrowserRouter([
   },
   {
     path: '/register',
-    element: <Register />,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Register />
+      </React.Suspense>
+    ),
   },
   {
     path: '/login',
-    element: <Login />,
+    element: (
+      <React.Suspense fallback={<div>Loading...</div>}>
+        <Login />
+      </React.Suspense>
+    ),
   },
 ]);
 

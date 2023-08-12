@@ -88,7 +88,7 @@ function Header() {
             >
               <Avatar
                 className={style.user}
-                src={UserAvatar}
+                src={<img src={UserAvatar} alt='user' loading='lazy' />}
               />
             </Popover>
           </>
