@@ -20,6 +20,8 @@ root.render(
 );
 
 window.onload = () => {
-  import('./pages/Post/Post');
-  import('./pages/Write/Write');
+  setTimeout(() => {
+    import('./pages/Post/Post');
+    import('./pages/Write/Write');
+  }, 3000);
 }
