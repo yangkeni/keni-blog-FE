@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, Avatar, Popover } from 'antd';
 import Logo from '../../assets/logo.png';
-import UserAvatar from '../../assets/user.jpg';
+import UserAvatar from '../../assets/user.jpeg';
 import AddBlog from '../../assets/addBlog.svg';
 import style from './style.module.less';
 import { useCurUser } from '../../hooks';
