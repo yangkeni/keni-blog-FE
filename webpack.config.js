@@ -70,7 +70,7 @@ module.exports = {
       },
       {
         // 图片格式处理
-        test: /\.(jpg|png|gif)$/,
+        test: /\.(jpeg|png|gif)$/,
         use: {
           loader: 'file-loader',
           options: {
