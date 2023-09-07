@@ -88,9 +88,9 @@ const Login = () => {
             </Button>
           </Form.Item>
         </Form>
-        <span className="go-register">
+        {/* <span className="go-register">
           没有账号？<Link to={'/register'}>现在注册</Link>
-        </span>
+        </span> */}
       </div>
     </>
   );
