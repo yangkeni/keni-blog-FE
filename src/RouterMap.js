@@ -11,7 +11,7 @@ const Write = React.lazy(() => import('./pages/Write/Write'));
 
 const Post = React.lazy(() => import('./pages/Post/Post'));
 
-const Register = React.lazy(() => import('./pages/Register/Register'));
+// const Register = React.lazy(() => import('./pages/Register/Register'));
 const Login = React.lazy(() => import('./pages/Login/Login'));
 
 
@@ -58,14 +58,14 @@ const router = createBrowserRouter([
       },
     ],
   },
-  {
-    path: '/register',
-    element: (
-      <React.Suspense fallback={<div>Loading...</div>}>
-        <Register />
-      </React.Suspense>
-    ),
-  },
+  // {
+  //   path: '/register',
+  //   element: (
+  //     <React.Suspense fallback={<div>Loading...</div>}>
+  //       <Register />
+  //     </React.Suspense>
+  //   ),
+  // },
   {
     path: '/login',
     element: (
